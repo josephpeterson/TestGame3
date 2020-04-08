@@ -39,6 +39,8 @@ void ADamageable::TakeAttack() {
 
 	GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Yellow, FString::FromInt(Health));
 
+
+	OnAttacked();
 }
 void ADamageable::AddHealth(float pts) {
 	Health += pts;
@@ -58,3 +60,10 @@ void ADamageable::InstantRespawn() {
 void ADamageable::Die() {
 
 }
+
+
+void ADamageable::OnAttacked_Implementation() {
+
+}
+
+
