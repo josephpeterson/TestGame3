@@ -41,7 +41,8 @@ void AProjectile::OnProjectileHit(UPrimitiveComponent* HitComp, AActor* OtherAct
 {
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL))
 	{
-		OtherComp->AddImpulseAtLocation(GetVelocity() * 20.0f, GetActorLocation());
+		if(OtherComp->IsSimulatingPhysics())
+			OtherComp->AddImpulseAtLocation(GetVelocity() * 20.0f, GetActorLocation());
 
 
 		ADamageable* damageable = Cast<class ADamageable>(OtherActor);

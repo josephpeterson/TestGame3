@@ -47,8 +47,10 @@ public:
 	void InstantRespawn();
 
 	/* Callbacks */
-	UFUNCTION(BlueprintImplementableEvent, Category = "Character")
+	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
 	 void OnAttacked();
+	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
+		void OnDeath();
 
 protected:
 	// Called when the game starts or when spawned
@@ -61,5 +63,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void OnAttacked_Implementation();
+	virtual void OnDeath_Implementation();
 
 };

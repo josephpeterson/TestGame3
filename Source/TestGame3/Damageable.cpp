@@ -49,20 +49,26 @@ void ADamageable::SubtractHealth(float pts) {
 	Health -= pts;
 
 	if (Health <= 0)
-		InstantRespawn();
+		Die();
 }
 
 void ADamageable::InstantRespawn() {
 	
 	Health = MaxHealth;
+
+
 	RootComponent->SetWorldLocation(InitialSpawnPosition);
 }
 void ADamageable::Die() {
-
+	OnDeath();
 }
 
 
 void ADamageable::OnAttacked_Implementation() {
+
+}
+
+void ADamageable::OnDeath_Implementation() {
 
 }
 
