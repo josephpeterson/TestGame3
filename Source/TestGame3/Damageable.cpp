@@ -10,7 +10,6 @@ ADamageable::ADamageable()
 	PrimaryActorTick.bCanEverTick = true;
 
 
-	InitialHealth = 100;
 	MaxHealth = 100;
 	Health = 100;
 
@@ -34,7 +33,12 @@ void ADamageable::Tick(float DeltaTime)
 
 }
 
-void ADamageable::TakeAttack() {
+float ADamageable::GetMaxHealth_Implementation()
+{
+	return MaxHealth;
+}
+
+void ADamageable::TakeAttack_Implementation() {
 	SubtractHealth(12);
 
 	GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Yellow, FString::FromInt(Health));
@@ -42,24 +46,29 @@ void ADamageable::TakeAttack() {
 
 	OnAttacked();
 }
-void ADamageable::AddHealth(float pts) {
+void ADamageable::AddHealth_Implementation(float pts) {
 	Health += pts;
 }
-void ADamageable::SubtractHealth(float pts) {
+void ADamageable::SubtractHealth_Implementation(float pts) {
 	Health -= pts;
 
 	if (Health <= 0)
 		Die();
 }
 
-void ADamageable::InstantRespawn() {
+float ADamageable::GetHealth_Implementation()
+{
+	return Health;
+}
+
+void ADamageable::InstantRespawn_Implementation() {
 	
 	Health = MaxHealth;
 
 
 	RootComponent->SetWorldLocation(InitialSpawnPosition);
 }
-void ADamageable::Die() {
+void ADamageable::Die_Implementation() {
 	OnDeath();
 }
 
@@ -71,5 +80,3 @@ void ADamageable::OnAttacked_Implementation() {
 void ADamageable::OnDeath_Implementation() {
 
 }
-
-

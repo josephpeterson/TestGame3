@@ -252,6 +252,53 @@ FVector ADamageableCharacter::GetWorldPositionFromCursor() {
 
 
 
+float ADamageableCharacter::GetMaxHealth_Implementation()
+{
+	return MaxHealth;
+}
+
+void ADamageableCharacter::TakeAttack_Implementation() {
+	SubtractHealth(12);
+
+
+
+	OnAttacked();
+}
+void ADamageableCharacter::AddHealth_Implementation(float pts) {
+	Health += pts;
+}
+void ADamageableCharacter::SubtractHealth_Implementation(float pts) {
+	Health -= pts;
+
+	if (Health <= 0)
+		Die();
+}
+
+float ADamageableCharacter::GetHealth_Implementation()
+{
+	return Health;
+}
+
+void ADamageableCharacter::InstantRespawn_Implementation() {
+
+	Health = MaxHealth;
+
+
+	//RootComponent->SetWorldLocation(InitialSpawnPosition);
+}
+void ADamageableCharacter::Die_Implementation() {
+	OnDeath();
+}
+
+
+void ADamageableCharacter::OnAttacked_Implementation() {
+
+}
+
+void ADamageableCharacter::OnDeath_Implementation() {
+
+}
+
 
 
 

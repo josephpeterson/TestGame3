@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "IDamageable.h"
 #include "Damageable.generated.h"
 
 UCLASS()
-class TESTGAME3_API ADamageable : public AActor
+class TESTGAME3_API ADamageable : public AActor, public IIDamageable
 {
 	GENERATED_BODY()
 	
@@ -15,15 +16,10 @@ public:
 	// Sets default values for this actor's properties
 	ADamageable();
 
-
-
-	/* Damage Properties */
-	UPROPERTY(Category = Damage, EditAnywhere, BlueprintReadWrite)
-	float InitialHealth;
-	UPROPERTY(Category = Damage, EditAnywhere, BlueprintReadWrite)
-	float MaxHealth;
-	UPROPERTY(Category = Damage, EditAnywhere, BlueprintReadWrite)
-	float Health;
+	UPROPERTY(Category = Damage, EditAnywhere)
+		float MaxHealth;
+	UPROPERTY(Category = Damage, EditAnywhere)
+		float Health;
 	UPROPERTY(Category = Damage, EditAnywhere, BlueprintReadWrite)
 	float Defense;
 	UPROPERTY(Category = Damage, EditAnywhere, BlueprintReadWrite)
@@ -32,26 +28,7 @@ public:
 
 
 
-	/* Health Operations */
-	UFUNCTION(BlueprintCallable, Category = "Damage")
-	void TakeAttack();
-	UFUNCTION(BlueprintCallable, Category = "Damage")
-	void AddHealth(float pts);
-	UFUNCTION(BlueprintCallable, Category = "Damage")
-	void SubtractHealth(float pts);
-
-	/* Death */
-	UFUNCTION(BlueprintCallable, Category = "Damage")
-	void Die();
-	UFUNCTION(BlueprintCallable, Category = "Damage")
-	void InstantRespawn();
-
-	/* Callbacks */
-	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
-	 void OnAttacked();
-	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
-		void OnDeath();
-
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -62,7 +39,43 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+
+
+	/* Health Operations */
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
+		void AddHealth(float pts);
+	virtual void AddHealth_Implementation(float pts);
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
+		void SubtractHealth(float pts);
+	virtual void SubtractHealth_Implementation(float pts);
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
+		float GetHealth();
+	virtual float GetHealth_Implementation();
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
+		float GetMaxHealth();
+	virtual float GetMaxHealth_Implementation();
+
+	/* Attack */
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
+		void TakeAttack();
+	virtual void TakeAttack_Implementation();
+
+	/* Death */
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
+		void Die();
+	virtual void Die_Implementation();
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
+		void InstantRespawn();
+	virtual void InstantRespawn_Implementation();
+
+	/* Callbacks */
+	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
+		void OnAttacked();
 	virtual void OnAttacked_Implementation();
+	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
+		void OnDeath();
 	virtual void OnDeath_Implementation();
+
 
 };
