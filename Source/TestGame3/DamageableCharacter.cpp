@@ -280,11 +280,23 @@ float ADamageableCharacter::GetMaxHealth_Implementation()
 }
 
 void ADamageableCharacter::TakeAttack_Implementation(UBasicAttack* attack) {
-	SubtractHealth(12);
+	AActor* infl = Cast<AActor>(attack->Owner);
+	if (infl)
+	{
+
+	}
+
+
+	Health -= attack->DirectDamage;
+	if (Health <= 0)
+	{
+		if (infl)
+			OnDeath(infl);
+	}
 
 
 
-	OnAttacked(nullptr,attack);
+	OnAttacked(nullptr, attack);
 }
 void ADamageableCharacter::AddHealth_Implementation(float pts) {
 	Health += pts;
@@ -318,7 +330,7 @@ void ADamageableCharacter::OnAttacked_Implementation(IIDamageable* inflictor, UB
 }
 
 void ADamageableCharacter::OnDeath_Implementation(class AActor* killer) {
-
+	Destroy();
 }
 
 
