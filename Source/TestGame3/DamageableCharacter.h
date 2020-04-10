@@ -168,4 +168,9 @@ public:
 	virtual void OnDeath_Implementation(class AActor* killer);
 
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
+		void OnLevelUp();
+	virtual void OnLevelUp_Implementation();
+
+
 };
