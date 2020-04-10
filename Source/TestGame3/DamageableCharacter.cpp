@@ -50,18 +50,6 @@ ADamageableCharacter::ADamageableCharacter()
 
 
 
-
-	// Create a camera boom...
-	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
-	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->TargetArmLength = 1200.f;
-	CameraBoom->SetRelativeRotation(FRotator(-60.f, 0.f, 0.f));
-	CameraBoom->bDoCollisionTest = false; // Don't want to pull camera in when it collides with level
-
-	// Create a camera...
-	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("TopDownCamera"));
-	CameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
-
 }
 
 void ADamageableCharacter::AddXP(float pts)
@@ -74,15 +62,21 @@ void ADamageableCharacter::AddXP(float pts)
 }
 void ADamageableCharacter::LevelUp(int levels)
 {
-	//XP = 0;
+	XP = 0;
+
 	Level += levels;
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Purple, "You leveled up: " + FString::FromInt(Level));
+
+
+		OnLevelUp();
+}
+void ADamageableCharacter::OnLevelUp_Implementation()
+{
 
 }
 
 float ADamageableCharacter::GetCurrentRequiredXP()
 {
-	float xp = 150 + Level * 1.5;
+	float xp = (150 * 1.5) * Level;
 	return xp;
 }
 
