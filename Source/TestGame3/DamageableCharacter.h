@@ -164,8 +164,8 @@ public:
 		void OnAttacked(const TScriptInterface<IIDamageable>& inflictor, UBasicAttack* attack);
 	virtual void OnAttacked_Implementation(IIDamageable* inflictor, UBasicAttack* attack);
 	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
-		void OnDeath(const TScriptInterface<IIDamageable>& killer);
-	virtual void OnDeath_Implementation(const TScriptInterface<IIDamageable>& killer);
+		void OnDeath(class AActor* killer);
+	virtual void OnDeath_Implementation(class AActor* killer);
 
 
 };

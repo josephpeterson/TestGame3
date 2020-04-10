@@ -43,16 +43,14 @@ void ADamageableObject::TakeAttack_Implementation(UBasicAttack* attack) {
 	if (infl)
 	{
 
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, (infl->GetName()));
 	}
-	else
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, "no");
 
 
 	Health -= attack->DirectDamage;
 	if (Health <= 0)
 	{
-		OnDeath(nullptr);
+		if(infl)
+			OnDeath(infl);
 	}
 
 
@@ -87,10 +85,9 @@ void ADamageableObject::OnAttacked_Implementation(IIDamageable* inflictor, UBasi
 
 }
 
-void ADamageableObject::OnDeath_Implementation(const TScriptInterface<IIDamageable>& killer) {
+void ADamageableObject::OnDeath_Implementation(class AActor* killer) {
 
 }
-
 
 
 

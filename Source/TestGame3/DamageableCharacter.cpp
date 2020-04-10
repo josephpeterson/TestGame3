@@ -66,6 +66,7 @@ ADamageableCharacter::ADamageableCharacter()
 
 void ADamageableCharacter::AddXP(float pts)
 {
+
 	XP += pts;
 
 	if (XP > GetCurrentRequiredXP())
@@ -73,13 +74,15 @@ void ADamageableCharacter::AddXP(float pts)
 }
 void ADamageableCharacter::LevelUp(int levels)
 {
-	XP = 0;
+	//XP = 0;
 	Level += levels;
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Purple, "You leveled up: " + FString::FromInt(Level));
+
 }
 
 float ADamageableCharacter::GetCurrentRequiredXP()
 {
-	float xp = Level * 1.5;
+	float xp = 150 + Level * 1.5;
 	return xp;
 }
 
@@ -320,7 +323,7 @@ void ADamageableCharacter::OnAttacked_Implementation(IIDamageable* inflictor, UB
 
 }
 
-void ADamageableCharacter::OnDeath_Implementation(const TScriptInterface<IIDamageable>& killer) {
+void ADamageableCharacter::OnDeath_Implementation(class AActor* killer) {
 
 }
 

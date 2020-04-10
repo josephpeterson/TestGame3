@@ -52,7 +52,7 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
 		void OnAttacked(const TScriptInterface<IIDamageable>& inflictor,UBasicAttack* attack);
 	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
-		void OnDeath(const TScriptInterface<IIDamageable>& killer);
+		void OnDeath(class AActor* killer);
 
 };
  
