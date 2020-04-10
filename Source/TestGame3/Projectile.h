@@ -15,6 +15,10 @@ public:
 	// Sets default values for this actor's properties
 	AProjectile();
 
+
+	UPROPERTY(Category = "Damage", EditAnywhere)
+		TSubclassOf<class UBasicAttack> DirectAttack;
+
 	UFUNCTION()
 	void OnProjectileHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 

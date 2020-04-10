@@ -59,8 +59,8 @@ public:
 
 	/* Attack */
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
-		void TakeAttack();
-	virtual void TakeAttack_Implementation();
+		void TakeAttack(UBasicAttack* attack);
+	virtual void TakeAttack_Implementation(UBasicAttack* attack);
 
 	/* Death */
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
@@ -72,11 +72,11 @@ public:
 
 	/* Callbacks */
 	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
-		void OnAttacked();
-	virtual void OnAttacked_Implementation();
+		void OnAttacked(const TScriptInterface<IIDamageable>& inflictor, UBasicAttack* attack);
+	virtual void OnAttacked_Implementation(IIDamageable* inflictor, UBasicAttack* attack);
 	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
-		void OnDeath();
-	virtual void OnDeath_Implementation();
+		void OnDeath(const TScriptInterface<IIDamageable>& killer);
+	virtual void OnDeath_Implementation(const TScriptInterface<IIDamageable>& killer);
 
 
 };

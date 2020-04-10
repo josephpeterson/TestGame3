@@ -3,13 +3,32 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "IDamageable.h"
+#include "BasicAttack.generated.h"
 
 /**
  * 
  */
-class TESTGAME3_API BasicAttack
+UCLASS(BlueprintType)
+class TESTGAME3_API UBasicAttack: public UObject
 {
+	GENERATED_BODY()
+
 public:
-	BasicAttack();
-	~BasicAttack();
+	UBasicAttack();
+	~UBasicAttack();
+
+
+	UPROPERTY(Category = Damage, EditAnywhere)
+		float DirectDamage;
+	UPROPERTY(Category = Damage, EditAnywhere)
+		float SpDamage;
+
+	UPROPERTY(Category = Damage, EditAnywhere)
+		FString Name;
+
+
+	class IIDamageable* Owner;
+
+
 };

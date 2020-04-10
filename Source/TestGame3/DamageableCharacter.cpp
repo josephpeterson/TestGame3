@@ -42,6 +42,12 @@ ADamageableCharacter::ADamageableCharacter()
 	bCanFireSecondary = true;
 	BulletSpread = 0;
 
+	//Default Level
+	Level = 1;
+	XP = 0;
+	Mana = 200;
+	MaxMana = 200;
+
 
 
 
@@ -56,6 +62,25 @@ ADamageableCharacter::ADamageableCharacter()
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("TopDownCamera"));
 	CameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 
+}
+
+void ADamageableCharacter::AddXP(float pts)
+{
+	XP += pts;
+
+	if (XP > GetCurrentRequiredXP())
+		LevelUp(1);
+}
+void ADamageableCharacter::LevelUp(int levels)
+{
+	XP = 0;
+	Level += levels;
+}
+
+float ADamageableCharacter::GetCurrentRequiredXP()
+{
+	float xp = Level * 1.5;
+	return xp;
 }
 
 // Called when the game starts or when spawned
@@ -153,7 +178,7 @@ void ADamageableCharacter::FireMainWeapon() {
 
 
 		FActorSpawnParameters spawnParams;
-		spawnParams.Owner = PlayerController;
+		spawnParams.Owner = this;
 		AProjectile* p = World->SpawnActor<AProjectile>(PrimaryWeaponClass , projectilePosition, FireRotation, spawnParams);
 
 		if (FireSound != nullptr)
@@ -257,12 +282,12 @@ float ADamageableCharacter::GetMaxHealth_Implementation()
 	return MaxHealth;
 }
 
-void ADamageableCharacter::TakeAttack_Implementation() {
+void ADamageableCharacter::TakeAttack_Implementation(UBasicAttack* attack) {
 	SubtractHealth(12);
 
 
 
-	OnAttacked();
+	OnAttacked(nullptr,attack);
 }
 void ADamageableCharacter::AddHealth_Implementation(float pts) {
 	Health += pts;
@@ -287,15 +312,15 @@ void ADamageableCharacter::InstantRespawn_Implementation() {
 	//RootComponent->SetWorldLocation(InitialSpawnPosition);
 }
 void ADamageableCharacter::Die_Implementation() {
-	OnDeath();
+	//OnDeath();
 }
 
 
-void ADamageableCharacter::OnAttacked_Implementation() {
+void ADamageableCharacter::OnAttacked_Implementation(IIDamageable* inflictor, UBasicAttack* attack) {
 
 }
 
-void ADamageableCharacter::OnDeath_Implementation() {
+void ADamageableCharacter::OnDeath_Implementation(const TScriptInterface<IIDamageable>& killer) {
 
 }
 

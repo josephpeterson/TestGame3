@@ -40,7 +40,7 @@ public:
 
 	/* Attack */
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
-		void TakeAttack();
+		void TakeAttack(UBasicAttack* attack);
 
 	/* Death */
 	UFUNCTION(BlueprintNativeEvent,BlueprintCallable, Category = "Damage")
@@ -50,9 +50,9 @@ public:
 
 	/* Events */
 	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
-		void OnAttacked();
+		void OnAttacked(const TScriptInterface<IIDamageable>& inflictor,UBasicAttack* attack);
 	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
-		void OnDeath();
+		void OnDeath(const TScriptInterface<IIDamageable>& killer);
 
 };
  

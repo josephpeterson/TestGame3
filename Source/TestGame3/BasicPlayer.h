@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Damageable.h"
+#include "DamageableCharacter.h"
 #include "BasicPlayer.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TESTGAME3_API ABasicPlayer : public ADamageable
+class TESTGAME3_API ABasicPlayer : public ADamageableCharacter
 {
 	GENERATED_BODY()
 	

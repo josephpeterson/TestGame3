@@ -2,7 +2,6 @@
 
 
 #include "Projectile.h"
-#include "Damageable.h"
 #include "IDamageable.h"
 #include "Components/SphereComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -47,10 +46,13 @@ void AProjectile::OnProjectileHit(UPrimitiveComponent* HitComp, AActor* OtherAct
 
 
 		IIDamageable* damageable = Cast<class IIDamageable>(OtherActor);
-		if(damageable != nullptr)
+		if(damageable != nullptr && DirectAttack)
 		{
 
-			damageable->Execute_TakeAttack(OtherActor);
+			UBasicAttack* atk = Cast< UBasicAttack>(DirectAttack->GetDefaultObject());
+
+			atk->Owner = Cast<IIDamageable>(GetOwner());
+			damageable->Execute_TakeAttack(OtherActor,atk);
 		}
 	}
 

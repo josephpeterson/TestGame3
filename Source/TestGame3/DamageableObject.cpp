@@ -36,12 +36,28 @@ void ADamageableObject::Tick(float DeltaTime)
 }
 
 
-void ADamageableObject::TakeAttack_Implementation() {
-	SubtractHealth(12);
+void ADamageableObject::TakeAttack_Implementation(UBasicAttack* attack) {
+	
+	
+	AActor* infl = Cast<AActor>(attack->Owner);
+	if (infl)
+	{
+
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, (infl->GetName()));
+	}
+	else
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, "no");
+
+
+	Health -= attack->DirectDamage;
+	if (Health <= 0)
+	{
+		OnDeath(nullptr);
+	}
 
 
 
-	OnAttacked();
+	OnAttacked(nullptr,attack);
 }
 void ADamageableObject::AddHealth_Implementation(float pts) {
 	Health += pts;
@@ -63,15 +79,15 @@ void ADamageableObject::InstantRespawn_Implementation() {
 	RootComponent->SetWorldLocation(InitialSpawnPosition);
 }
 void ADamageableObject::Die_Implementation() {
-	OnDeath();
+	OnDeath(nullptr);
 }
 
 
-void ADamageableObject::OnAttacked_Implementation() {
+void ADamageableObject::OnAttacked_Implementation(IIDamageable* inflictor, UBasicAttack* attack) {
 
 }
 
-void ADamageableObject::OnDeath_Implementation() {
+void ADamageableObject::OnDeath_Implementation(const TScriptInterface<IIDamageable>& killer) {
 
 }
 

@@ -3,10 +3,11 @@
 
 #include "BasicAttack.h"
 
-BasicAttack::BasicAttack()
+UBasicAttack::UBasicAttack()
 {
+	DirectDamage = 10;
 }
 
-BasicAttack::~BasicAttack()
+UBasicAttack::~UBasicAttack()
 {
 }
