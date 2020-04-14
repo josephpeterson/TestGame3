@@ -47,6 +47,7 @@ ADamageableCharacter::ADamageableCharacter()
 	XP = 0;
 	Mana = 200;
 	MaxMana = 200;
+	UseCppFiring = false;
 
 
 
@@ -94,12 +95,15 @@ void ADamageableCharacter::Tick(float DeltaTime)
 
 
 
+	if (UseCppFiring) {
+
 	if (bIsFiringMainWeapon && bCanFire)
 	{
 		FireMainWeapon();
 	}
 	if (bIsFiringSecondaryWeapon && bCanFireSecondary)
 		FireSecondaryWeapon();
+	}
 }
 
 // Called to bind functionality to input

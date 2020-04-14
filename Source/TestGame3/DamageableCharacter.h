@@ -20,6 +20,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	void ShootAtPosition(FVector2D mousePosition);
 
+
+
+	UPROPERTY(Category = "Weapon", EditAnywhere, BlueprintReadWrite)
+		bool UseCppFiring;
+
+
 	UPROPERTY(Category = "Weapon", EditAnywhere, BlueprintReadWrite)
 	float FireRate;
 	UPROPERTY(Category = "Weapon", EditAnywhere, BlueprintReadWrite)
